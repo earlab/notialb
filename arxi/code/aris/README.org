@@ -18,20 +18,8 @@ this will help with ofSetBackgroundAuto(false), but it will make ofSetBackground
 ** 6. SuperCollider 3.6
 
 
-* Performances
-** Notialb
+
+* Notialb
 
 *Vaggelis Tsatsis, Alexandros Aggelakis, Aris Bezas*
 - http://www.lifo.gr/guests/thessaloniki/34505
-** Technoetic Telos Concert
-   *Ioannis Zannos - Aris Bezas*
-
-** High, but under control.
-   Performers:
-   *Jérôme Bertholon - Omer Chatziserif - Damian Marhulets - Aris Bezas*
-
-   Commit history:
-   https://github.com/igoumeninja/hbuc/commits/lyon
-
-   Source Code:
-   https://github.com/igoumeninja/hbuc/tree/lyon
