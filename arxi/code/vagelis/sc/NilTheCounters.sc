@@ -1,8 +1,8 @@
 NilTheCounters{
-	
+
 	*load{
-		
-		
+
+
 		~counter1 = 1;
 		~counter2 = 1;
 		~counter3 = 1;
@@ -14,13 +14,13 @@ NilTheCounters{
 		~counter9 = 1;
 		~counter10 = 1;
 		~counter11 = 1;
-			
-		
-		
-		}
-	
+
+
+
 	}
-	
-	
+
+}
+
+
 
 //NilTheCounters.load;
