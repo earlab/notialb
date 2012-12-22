@@ -411,7 +411,12 @@ void liveApp::update()	{
         
         sinEqArray[m.getArgAsInt32(0)].activeSinEq = true;
         sinEqArray[m.getArgAsInt32(0)].xPos = m.getArgAsInt32(1);
-        sinEqArray[m.getArgAsInt32(0)].par1 = m.getArgAsInt32(2);
+        sinEqArray[m.getArgAsInt32(0)].yPos = m.getArgAsInt32(2);
+        sinEqArray[m.getArgAsInt32(0)].amp = m.getArgAsInt32(3);
+        sinEqArray[m.getArgAsInt32(0)].freq = m.getArgAsFloat(4);
+        sinEqArray[m.getArgAsInt32(0)].phase = m.getArgAsFloat(5);
+        sinEqArray[m.getArgAsInt32(0)].speed = m.getArgAsFloat(6);
+        
         if (m.getArgAsString(0) == "remove") {
             sinEqArray[m.getArgAsInt32(1)].activeSinEq = false;
         }
@@ -1172,7 +1177,7 @@ void liveApp::draw()	{
     
     for(int i = 0; i < 1024; i++)                   {
         if (sinEqArray[i].activeSinEq == true) {
-            sinEq(sinEqArray[i].xPos,sinEqArray[i].par1);
+            sinEq(sinEqArray[i].xPos,sinEqArray[i].yPos,sinEqArray[i].amp, sinEqArray[i].freq, sinEqArray[i].phase, sinEqArray[i].speed);
         }
     }   //  sinEq
 	if (camera)                                     {
@@ -1676,11 +1681,11 @@ void liveApp::draw()	{
     
     	
 }
-void liveApp::sinEq(int x, float par1)   {
+void liveApp::sinEq(int x, int y, int amp, float freq, float phase, float speed)   {
     //ofBackground(0, 0, 0);
     ofEnableAlphaBlending();	// turn on alpha blending
     ofNoFill();
-    ofSetColor(255,0,0,127);
+    ofSetColor(0,0,0,127);
     //ofSetPolyMode(OF_POLY_WINDING_NONZERO);
     ofBeginShape();
     
@@ -1689,8 +1694,10 @@ void liveApp::sinEq(int x, float par1)   {
     for(int i=0; i<numSamples;i++){
         float a = TWO_PI/numSamples*i;
         //samples[i]=sin(a*a*sin(a*20/2));
-        samples[i]=sin(par1*a*a*sin(a*5/2));
-        ofVertex(x + 40*sin(ofGetFrameNum()*0.04)*samples[i],i*4);
+        //samples[i]=sin(par1*a*a*sin(a*5/2));
+        samples[i]=amp*sin(freq*a + phase);
+        //ofVertex(x + 40*sin(ofGetFrameNum()*0.04)*samples[i],i*4);
+        ofVertex(x + sin(ofGetFrameNum()*speed)*samples[i],i*4);
     }
     ofEndShape();
     if (counterSinEq%40 == true) {
@@ -1851,7 +1858,4 @@ void liveApp::mousePressed	(int x, int y, int button)	{
 void liveApp::mouseReleased	(int x, int y, int button)	{
 	isMousePressed = false;
 	drawNow = false;
-}
-void liveApp::resized(int w, int h)	{
-
 }

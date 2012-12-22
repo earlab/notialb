@@ -16,7 +16,7 @@ int main( ){
 	//ofSetupOpenGL(&window, 968, 644, OF_WINDOW);
 	
 	
-	//ofSetWindowPosition(1440,0);
+	ofSetWindowPosition(1440,0);
 	
 	ofRunApp( new liveApp());
 
