@@ -7,6 +7,7 @@
 //#include "ofxVectorMath.h"
 #include "ofxOsc.h"
 #include "ParticleSystem.h"
+#include "ofxBlurShader.h"
 //Pushers
 #include <list>
 
@@ -41,11 +42,15 @@ public:
 	void	seed1(float dotSize, float angle, float x, float y);
 	void	seed2(float dotSize, float angle, float x, float y);
     
-    void    sinEq(int x, float par1);
+    void    sinEq(int x, int y, int amp, float freq, float phase, float speed);
 	struct structSinEq {
 		bool    activeSinEq;
 		int     xPos;
-        float   par1;
+		int     yPos;
+        int     amp;        
+        float   freq;
+		float   phase;
+		float   speed;
 	} sinEqArray[1024];
 
     bool sinEqBool;
@@ -92,6 +97,7 @@ public:
 	
 	//========================
 	//  OBJECTS
+    	ofxBlurShader blur;
 	ofxVec2f				p;
 	ofxOscSender			osc_sender;
 	ParticleSystem			particleSystem;
