@@ -12,7 +12,16 @@
 #include "liveApp.h"
 
 void liveApp::setup()	{
-	
+    /*{
+        blur.setup(1200,900);
+        
+        blur.begin();
+        blur.end();
+        
+        blur.setRadius(ofMap(mouseX, 0, ofGetWidth(), 0, 50, true));
+        blur.setPasses(ofMap(mouseY, 0, ofGetHeight(), 1, 50, true));
+
+     }*/   // blurShader
 	{
 
 		ofBackground(0,0,0);
@@ -385,7 +394,8 @@ void liveApp::update()	{
 	while( receiver.hasWaitingMessages() )
 	{
 	ofxOscMessage m;
-	receiver.getNextMessage( &m ); 
+	receiver.getNextMessage( &m );
+        
 	if ( m.getAddress() == "playSpectro")			{
 		if (m.getArgAsString(0) == "activate") {
 			playSpectro = m.getArgAsInt32(1);
@@ -1154,37 +1164,17 @@ void liveApp::update()	{
 		}
 	}	//	Sound Interaction amp, freq, loudness, onset, specCentroid, specFlatness, fftData 
 	}
-}
-void liveApp::sinEq(int x, float par1)   {
-    //ofBackground(0, 0, 0);
-    ofEnableAlphaBlending();	// turn on alpha blending
-    ofNoFill();
-    ofSetColor(255,0,0,127);
-    //ofSetPolyMode(OF_POLY_WINDING_NONZERO);
-    ofBeginShape();
-
-    int numSamples = ofGetScreenWidth()/4;
-    float samples[numSamples];
-    for(int i=0; i<numSamples;i++){
-        float a = TWO_PI/numSamples*i;
-        //samples[i]=sin(a*a*sin(a*20/2));
-        samples[i]=sin(par1*a*a*sin(a*5/2));
-        ofVertex(x + 40*sin(ofGetFrameNum()*0.04)*samples[i],i*4);
-    }
-    ofEndShape();
-    if (counterSinEq%40 == true) {
-        sinEqBool=0;
-    }
-    counterSinEq++;
     
+
 }
+
 void liveApp::draw()	{
     
-    for(int i = 0; i < 1024; i++)	{
+    for(int i = 0; i < 1024; i++)                   {
         if (sinEqArray[i].activeSinEq == true) {
             sinEq(sinEqArray[i].xPos,sinEqArray[i].par1);
         }
-    }
+    }   //  sinEq
 	if (camera)                                     {
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2, 0);
@@ -1682,6 +1672,32 @@ void liveApp::draw()	{
 		
 		
 	}*/	// Meshing
+
+    
+    	
+}
+void liveApp::sinEq(int x, float par1)   {
+    //ofBackground(0, 0, 0);
+    ofEnableAlphaBlending();	// turn on alpha blending
+    ofNoFill();
+    ofSetColor(255,0,0,127);
+    //ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+    ofBeginShape();
+    
+    int numSamples = ofGetScreenWidth()/4;
+    float samples[numSamples];
+    for(int i=0; i<numSamples;i++){
+        float a = TWO_PI/numSamples*i;
+        //samples[i]=sin(a*a*sin(a*20/2));
+        samples[i]=sin(par1*a*a*sin(a*5/2));
+        ofVertex(x + 40*sin(ofGetFrameNum()*0.04)*samples[i],i*4);
+    }
+    ofEndShape();
+    if (counterSinEq%40 == true) {
+        sinEqBool=0;
+    }
+    counterSinEq++;
+    
 }
 void liveApp::seed1(float dotSize, float angle, float x, float y)	{
   

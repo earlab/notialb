@@ -7,6 +7,7 @@
 //#include "ofxVectorMath.h"
 #include "ofxOsc.h"
 #include "ParticleSystem.h"
+#include "ofxBlurShader.h"
 //Pushers
 #include <list>
 
@@ -92,6 +93,7 @@ public:
 	
 	//========================
 	//  OBJECTS
+    	ofxBlurShader blur;
 	ofxVec2f				p;
 	ofxOscSender			osc_sender;
 	ParticleSystem			particleSystem;
