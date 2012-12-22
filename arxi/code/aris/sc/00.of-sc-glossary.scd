@@ -23,12 +23,22 @@ OF.background(setBackgroundAutoBool, 0);
 
 SIN EQUATIONS
 -------------
-OF.background(0,0,0,0);
+OF.background(0,0,0,10);
+OF.background(255,255,255,55);
+OF.sinEq(0, 400, 120, 100, 20, 11, 0.1); // OF.sinEq(true,xPos,yPos,amp,freq,phase,speed);
+(
+{
+	150.do{|i|
+		OF.sinEq(i, ~width/2, 620, 521, 3, i.neg/5.1.rand, 0.015);
+		0.05.wait;
+	};
+}.fork
+)
 OF.sinEq(0,600.rand,10.03213); // OF.sinEq(true,xPos,par1);
 OF.sinEq(0,200,100); // OF.sinEq(true,xPos,par1);
 OF.sinEq("remove",1)
 OF.sinEq("remove",0)
-25.do{|i|OF.sinEq("remove",24-i)}
+250.do{|i|OF.sinEq("remove",240-i)}
 
 FEEDBACK
 --------
