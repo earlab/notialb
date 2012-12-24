@@ -23,12 +23,22 @@ OF.background(setBackgroundAutoBool, 0);
 
 SIN EQUATIONS
 -------------
-OF.background(0,0,0,0);
+OF.background(0,0,0,10);
+OF.background(255,255,255,55);
+OF.sinEq(0, 400, 120, 100, 20, 11, 0.1); // OF.sinEq(true,xPos,yPos,amp,freq,phase,speed);
+(
+{
+	50.do{|i|
+		OF.sinEq(i, 25*i, 0, 2*i, 1+(i.neg/(1*360/50)), i.neg/800, 0.001+(i/800));
+		0.04.wait;
+	};
+}.fork
+)
 OF.sinEq(0,600.rand,10.03213); // OF.sinEq(true,xPos,par1);
 OF.sinEq(0,200,100); // OF.sinEq(true,xPos,par1);
 OF.sinEq("remove",1)
 OF.sinEq("remove",0)
-25.do{|i|OF.sinEq("remove",24-i)}
+250.do{|i|OF.sinEq("remove",240-i)}
 
 FEEDBACK
 --------
@@ -37,7 +47,7 @@ OF.feedback("speedXY", 0,5.5);
 
 EFFECTS
 =======
-OF.effect("destruct","activate",1)
+OF.effect("destruct","activate",0)
 OF.effect("destruct","case",2)	// 2: the best 0,1,2,3
 OF.effect("destruct","phrase1")	// 2: the best 0,1,2,3
 
