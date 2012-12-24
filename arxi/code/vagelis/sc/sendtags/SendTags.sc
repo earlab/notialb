@@ -1,10 +1,46 @@
-Dests { classvar <>mineAddr, <>pappousAddr, <>axilleasAddr;
+/*
+SendTags class. Modify PsendReceive Class.
+
+_______________
+| earlab team |
+---------------
+
+Iannis Zannos
+Dakis Trentos
+Omer Chatziserif
+Aris Bezas
+Alexandros Aggelakis
+Vaggelis Tsatsis
+
+
+----example-------
+
+~test = SendTags.new;
+~test.dests = [Dests.vagosAddr, Dests.arisAddr, Dests.alexAddr];
+~test.title = '/tags';
+~test.tags = [1, 2, 3, 4];
+~test.step = [0.50];
+~test.times = inf;
+~test.loop;
+~test.stop;
+~test.atEnd
+
+~testResp1 = RespTags.do('/tags', 1, nil);
+~testResp1.action = {"testTag: 1".postln};
+*/
+
+Dests { classvar <>vagosAddr, <>alexAddr, <>arisAddr;
 	*initClass {
 		StartUp.add{
-			mineAddr = NetAddr.localAddr;
-			pappousAddr = NetAddr("169.254.47.198", 57120);
-			axilleasAddr = NetAddr("169.254.45.129", 57120);
-			//mitsosAddr = NetAddr("10.1.60.1", 57121);
+			//vagosAddr = NetAddr("169.254.47.198", 57120);
+			//alexAddr = NetAddr("169.254.47.198", 57120);
+			//arisAddr = NetAddr("169.254.45.129", 57120);
+
+			// Add this false address because I am taking the error messages to Post window
+			// if I am sending to IP that doesn't exist.
+			vagosAddr = NetAddr("localhost", 57140);
+			alexAddr = NetAddr("localhost", 57140);
+			arisAddr = NetAddr.localAddr;
 		}
 	}
 }
@@ -22,40 +58,37 @@ SendTags {
 	loop {
 
 		tagPat = PatternProxy(Pseq([nil], inf));
-		steppattern = PatternProxy(Pseq([nil], inf));//def 0.2 --nil
-		~tagSync = PatternProxy(Pseq([nil], inf));//def 0.2 --nil
+		steppattern = PatternProxy(Pseq([nil], inf));
+		~tagSync = PatternProxy(Pseq([nil], inf));
 		tagg = tagPat.asStream;
 		stp = steppattern.asStream;
-		//stp2 = ~tagSync.asStream;
 		task = Task({
 			times.do{
-
 				tagPat.source = Pseq(tags, inf);
 				steppattern.source = Pseq(step, inf);
 				~tagSync.source = Pseq(step, inf).asStream;
+
+				// AB: -Poia i diafora tou verbose?
 				verbose.switch(
 					true, {
 						num = tags.numChannels;
 						num.do{
 							x = tagg.next;
+							// Apostoli s' oles tiw dieuthinseis
 							dests do: _.sendMsg(title.asString, x);
 							stp.next.wait;
-							//1/2 * (stp2.next + stp.next).wait;
-							//tag = tag+1;
 						}
 					},
 					false, {
 						steppattern.source = Pseq([step], inf);
 						~tagSync.source = Pseq([step], inf).asStream;
 						num.do{
-
 							x = tagg.next;
 							stp = steppattern.asStream;
 							stp = ~tagSync.asStream;
+							// Apostoli s' oles tiw dieuthinseis
 							dests do: _.sendMsg(title.asString, x);
 							stp.next.wait;
-							//1/2 * (stp2.next + stp.next).wait;
-							//tag = tag+1;
 						}
 					}
 				)
@@ -85,7 +118,7 @@ RespTags { var <>title, <>tag, <>action, <>responder;
 		^super.newCopyArgs(title, tag, action, responder).addResp;
 	}
 	addResp {
-		responder = OSCresponderNode(nil, title.asString, {arg time, resp, msg; /*msg[1].postln;*/
+		responder = OSCresponderNode(nil, title.asString, {arg time, resp, msg;
 			msg[1].switch( tag,
 				action
 			);

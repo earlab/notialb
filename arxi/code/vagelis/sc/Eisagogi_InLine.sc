@@ -26,6 +26,8 @@ Eisagogi_InLine{
 
 			Out.ar([0,1],
 				HenonN.ar(
+					// This equation was discovered by French astronomer Michel Hénon
+					// while studying the orbits of stars in globular clusters!! Ti lete wre?
 					SampleRate.ir/freq,
 					SinOsc.kr(0.1, 0.2, 1.2),
 					PinkNoise.kr(hilo),
@@ -36,11 +38,8 @@ Eisagogi_InLine{
 
 		}).send(Server.default);
 
-
-
 		//:Eisagogi_Pattern
 		//:========================
-
 		Pdef(\import, Pbind(
 			\instrument, \buf,
 			\dur, Pseq([1], 1),

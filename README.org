@@ -4,6 +4,7 @@ Notialb is project for play a live AudioVisual Intelligent Dance Music. The deve
 
 http://notialb.org/
 
-Vagelis Tsatsis
-Aris Bezas http://igoumeninja.org/
-Alexandros Aggelakis
+Vagelis Tsatsis, Aris Bezas, Alexandros Aggelakis
+
+*notiable setup*
+SuperCollider - openFrameworks
