@@ -1,0 +1,10 @@
+*notialb*
+
+Notialb is project for play a live AudioVisual Intelligent Dance Music. The development is taking place at github https://github.com/earlab/notialb.
+
+http://notialb.org/
+
+Vagelis Tsatsis, Aris Bezas, Alexandros Aggelakis
+
+*notiable setup*
+SuperCollider - openFrameworks

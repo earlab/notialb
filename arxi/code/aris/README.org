@@ -4,7 +4,7 @@
 * Installation notes
 ** 1. Mac OSX 10.8.2
 ** 2. of_v0073_osx_release 
-** 3. XCode Version 4.5.1 (4G1004)
+** 3. XCode Version 4.5.1 (4G1004) (You can use oF Project Generator)
 ** 4. Add https://github.com/openframeworks/ofxVectorMath to addons
 ** 5. Fix bug from [[http://forum.openframeworks.cc/index.php/topic,7753.msg36287.html#msg36287][mypost at forum]]
 if flickering is a problem, there is a change you can make deep inside OF:
